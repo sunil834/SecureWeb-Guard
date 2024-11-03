@@ -1,0 +1,150 @@
+/* Basic reset */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  width: 250px;
+  text-align: center;
+  color: #333; /* Default text color */
+}
+
+/* Content container styling */
+#content {
+  padding: 20px;
+  background-color: #2e2e2e;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15); /* Subtle shadow for depth */
+  color: #ffffff;
+}
+
+/* Header styling */
+#header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+#header h1 {
+  font-weight: bold;
+  margin: 0;
+  font-size: 1.2em;
+  flex-grow: 1; /* Allows h1 to take up remaining space */
+}
+
+#menuButton {
+  margin-left: 10px;
+  background: none;
+  border: none;
+  color: #bbb;
+  font-size: 1.3em;
+  cursor: pointer;
+  padding: 0;
+}
+
+#menuButton:hover {
+  color: #ffffff;
+}
+
+#version {
+  font-size: 0.85em;
+  color: #bbb;
+  margin-left: 5px; /* Small space between dots and version text */
+}
+
+/* Menu styling */
+.menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.9em;
+  background-color: #444;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Alert message styling */
+#alert {
+  font-size: 1em;
+  font-weight: bold;
+  margin-top: 15px;
+  padding: 10px;
+  color: #32CD32; /* Green for safe sites */
+}
+
+/* Toggle switch styling */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 18px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #bbb;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:checked + .slider:before {
+  transform: translateX(18px);
+}
+
+/* Theme toggle for light and dark modes */
+#content.dark {
+  background-color: #2e2e2e;
+  color: white;
+}
+
+#content.light {
+  background-color: #ffffff;
+  color: black;
+}
+
+/* Header text color based on theme */
+#header.dark h1, #header.dark #version {
+  color: #ffffff; /* White text for dark theme */
+}
+
+#header.light h1, #header.light #version {
+  color: #333333; /* Dark text for light theme */
+}
+
+#alert.safe {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+#alert.phishing {
+  background-color: #f8d7da;
+  color: #721c24;
+}
