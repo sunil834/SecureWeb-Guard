@@ -8,7 +8,10 @@
     "scripting",
     "activeTab",
     "storage",
-    "notifications"  
+    "notifications"
+  ],
+  "host_permissions": [
+    "https://raw.githubusercontent.com/*"
   ],
   "background": {
     "service_worker": "background.js"

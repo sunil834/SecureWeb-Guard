@@ -1,15 +1,46 @@
-let phishingUrls = new Set();
+// Define the phishing URLs set
+const phishingUrls = new Set();
 
-fetch(chrome.runtime.getURL('urls.txt'))
-  .then(response => response.text())
-  .then(data => {
-    data.split('\n').forEach(url => {
-      const hostname = url.trim().replace(/^www\./, ''); 
-      phishingUrls.add(hostname.toLowerCase()); 
+// Function to fetch phishing URLs from GitHub
+async function updatePhishingList() {
+  const url = 'https://raw.githubusercontent.com/mitchellkrogza/Phishing.Database/master/phishing-domains-ACTIVE.txt';
+
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch phishing URL list: ${response.status}`);
+    }
+    const data = await response.text();
+    phishingUrls.clear();
+    data.split('\n').forEach((line) => {
+      const hostname = line.trim().replace(/^www\./, '');
+      if (hostname) {
+        phishingUrls.add(hostname.toLowerCase());
+      }
     });
-  })
-  .catch(error => console.error("Failed to load phishing URLs:", error));
+    console.log("Phishing URLs list updated successfully.");
+    
+    // Cache the phishing URLs locally
+    chrome.storage.local.set({ phishingUrls: Array.from(phishingUrls) });
+  } catch (error) {
+    console.error("Error updating phishing URLs:", error);
 
+    // Load cached URLs if fetching failed
+    chrome.storage.local.get('phishingUrls', (result) => {
+      if (result.phishingUrls) {
+        phishingUrls.clear();
+        result.phishingUrls.forEach((url) => phishingUrls.add(url));
+        console.log("Loaded phishing URLs from cache.");
+      }
+    });
+  }
+}
+
+// Initial list update and interval-based refreshing
+updatePhishingList();
+setInterval(updatePhishingList, 30 * 60 * 1000); // Update every 30 minutes
+
+// Function to show phishing notification
 function showPhishingNotification() {
   chrome.notifications.create({
     type: 'basic',
@@ -20,20 +51,20 @@ function showPhishingNotification() {
   });
 }
 
+// Function to check if the current URL is a phishing site
 function checkPhishingStatus(tabId, url) {
   try {
     const currentUrl = new URL(url).hostname.toLowerCase().replace(/^www\./, '');
     if (phishingUrls.has(currentUrl)) {
       chrome.action.setPopup({ tabId: tabId, popup: "popup.html" });
-      chrome.action.setBadgeText({ tabId: tabId, text: "⚠️" }); 
-      chrome.action.setBadgeBackgroundColor({ color: "red" });   
+      chrome.action.setBadgeText({ tabId: tabId, text: "⚠️" });
+      chrome.action.setBadgeBackgroundColor({ color: "red" });
       chrome.storage.local.set({ isPhishing: true });
-      
-      
+
       showPhishingNotification();
     } else {
-      chrome.action.setBadgeText({ tabId: tabId, text: "✅" }); 
-      chrome.action.setBadgeBackgroundColor({ color: "green" });    
+      chrome.action.setBadgeText({ tabId: tabId, text: "✅" });
+      chrome.action.setBadgeBackgroundColor({ color: "green" });
       chrome.storage.local.set({ isPhishing: false });
     }
   } catch (error) {
@@ -43,6 +74,7 @@ function checkPhishingStatus(tabId, url) {
   }
 }
 
+// Tab update listener
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   chrome.storage.local.get(['isActive'], (result) => {
     if (result.isActive !== false) { // Default to active
@@ -53,6 +85,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   });
 });
 
+// Tab activated listener
 chrome.tabs.onActivated.addListener((activeInfo) => {
   chrome.storage.local.get(['isActive'], (result) => {
     if (result.isActive !== false) { // Default to active
