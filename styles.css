@@ -1,19 +1,22 @@
-/* Basic reset */
+/* Reset and basic styling */
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Roboto', sans-serif;
   margin: 0;
   padding: 0;
-  width: 250px;
+  width: 300px;
   text-align: center;
-  color: #333; /* Default text color */
+  background-color: #2e2e2e;
+  color: #333;
+  overflow: hidden;
 }
 
-/* Content container styling */
+/* Main content card styling */
 #content {
+  background-color: #ffffff;
   padding: 20px;
-  background-color: #2e2e2e;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15); /* Subtle shadow for depth */
-  color: #ffffff;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  height: auto;
 }
 
 /* Header styling */
@@ -21,34 +24,32 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 #header h1 {
   font-weight: bold;
   margin: 0;
-  font-size: 1.2em;
-  flex-grow: 1; /* Allows h1 to take up remaining space */
+  font-size: 1.5em;
 }
 
 #menuButton {
-  margin-left: 10px;
   background: none;
   border: none;
-  color: #bbb;
-  font-size: 1.3em;
+  color: #888;
+  font-size: 1.5em;
   cursor: pointer;
   padding: 0;
 }
 
 #menuButton:hover {
-  color: #ffffff;
+  color: #333;
 }
 
 #version {
-  font-size: 0.85em;
-  color: #bbb;
-  margin-left: 5px; /* Small space between dots and version text */
+  font-size: 0.9em;
+  color: #888;
+  margin-left: 10px;
 }
 
 /* Menu styling */
@@ -56,31 +57,43 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 0.9em;
-  background-color: #444;
+  font-size: 0.95em;
+  background-color: #f0f0f0;
   padding: 10px;
-  margin-top: 10px;
+  margin-bottom: 15px;
+  transition: all 0.3s ease-in-out;
+  color: #333;
 }
 
-.hidden {
-  display: none;
+.menu.dark {
+  background-color: #3a3a3a;
+  color: #ffffff;
 }
 
-/* Alert message styling */
-#alert {
-  font-size: 1em;
+.menu-label {
   font-weight: bold;
-  margin-top: 15px;
-  padding: 10px;
-  color: #32CD32; /* Green for safe sites */
 }
 
-/* Toggle switch styling */
+/* Toggle container styling */
+.toggle-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  font-size: 1.1em;
+  color: inherit;
+}
+
+.toggle-label {
+  margin-right: 10px;
+}
+
+/* Switch styling */
 .switch {
   position: relative;
   display: inline-block;
-  width: 36px;
-  height: 18px;
+  width: 50px;
+  height: 25px;
 }
 
 .switch input {
@@ -96,47 +109,42 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #bbb;
+  background-color: #ccc;
   transition: 0.4s;
+  border-radius: 25px;
+}
+
+.slider.round {
+  border-radius: 25px;
 }
 
 .slider:before {
   position: absolute;
   content: "";
-  height: 14px;
-  width: 14px;
+  height: 21px;
+  width: 21px;
   left: 2px;
   bottom: 2px;
   background-color: white;
   transition: 0.4s;
+  border-radius: 50%;
 }
 
 input:checked + .slider {
-  background-color: #2196F3;
+  background-color: #4caf50;
 }
 
 input:checked + .slider:before {
-  transform: translateX(18px);
+  transform: translateX(25px);
 }
 
-/* Theme toggle for light and dark modes */
-#content.dark {
-  background-color: #2e2e2e;
-  color: white;
-}
-
-#content.light {
-  background-color: #ffffff;
-  color: black;
-}
-
-/* Header text color based on theme */
-#header.dark h1, #header.dark #version {
-  color: #ffffff; /* White text for dark theme */
-}
-
-#header.light h1, #header.light #version {
-  color: #333333; /* Dark text for light theme */
+/* Alert styling for phishing or safe status */
+#alert {
+  font-size: 1em;
+  font-weight: bold;
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 5px;
 }
 
 #alert.safe {
@@ -147,4 +155,33 @@ input:checked + .slider:before {
 #alert.phishing {
   background-color: #f8d7da;
   color: #721c24;
+}
+
+/* Dark mode and light mode styling */
+#content.dark {
+  background-color: #2e2e2e;
+  color: #ffffff;
+}
+
+#content.light {
+  background-color: #ffffff;
+  color: #333;
+}
+
+#header.dark h1, #header.dark #version {
+  color: #ffffff;
+}
+
+#header.light h1, #header.light #version {
+  color: #333;
+}
+
+.menu.dark,
+.toggle-container.dark {
+  color: #ffffff;
+}
+
+.menu.light,
+.toggle-container.light {
+  color: #333;
 }

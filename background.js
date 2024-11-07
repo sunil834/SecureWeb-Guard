@@ -56,25 +56,37 @@ function checkPhishingStatus(tabId, url) {
   try {
     const currentUrl = new URL(url).hostname.toLowerCase().replace(/^www\./, '');
     if (phishingUrls.has(currentUrl)) {
-      chrome.action.setPopup({ tabId: tabId, popup: "popup.html" });
-      chrome.action.setBadgeText({ tabId: tabId, text: "⚠️" });
-      chrome.action.setBadgeBackgroundColor({ color: "red" });
-      chrome.storage.local.set({ isPhishing: true });
-
-      showPhishingNotification();
+      markPhishing(tabId);
     } else {
-      chrome.action.setBadgeText({ tabId: tabId, text: "✅" });
-      chrome.action.setBadgeBackgroundColor({ color: "green" });
-      chrome.storage.local.set({ isPhishing: false });
+      markSafe(tabId);
     }
   } catch (error) {
     console.error("Error processing tab URL:", error);
-    chrome.action.setBadgeText({ tabId: tabId, text: "" });
-    chrome.storage.local.set({ isPhishing: false });
+    markUnknown(tabId);
   }
 }
 
-// Tab update listener
+// Helper functions to mark tab status
+function markPhishing(tabId) {
+  chrome.action.setPopup({ tabId: tabId, popup: "popup.html" });
+  chrome.action.setBadgeText({ tabId: tabId, text: "⚠️" });
+  chrome.action.setBadgeBackgroundColor({ color: "red" });
+  chrome.storage.local.set({ isPhishing: true });
+  showPhishingNotification();
+}
+
+function markSafe(tabId) {
+  chrome.action.setBadgeText({ tabId: tabId, text: "✅" });
+  chrome.action.setBadgeBackgroundColor({ color: "green" });
+  chrome.storage.local.set({ isPhishing: false });
+}
+
+function markUnknown(tabId) {
+  chrome.action.setBadgeText({ tabId: tabId, text: "" });
+  chrome.storage.local.set({ isPhishing: false });
+}
+
+// Listeners for tab updates
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   chrome.storage.local.get(['isActive'], (result) => {
     if (result.isActive !== false) { // Default to active
@@ -85,7 +97,6 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   });
 });
 
-// Tab activated listener
 chrome.tabs.onActivated.addListener((activeInfo) => {
   chrome.storage.local.get(['isActive'], (result) => {
     if (result.isActive !== false) { // Default to active
