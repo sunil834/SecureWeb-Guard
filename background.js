@@ -44,15 +44,23 @@ function checkPhishingStatus(tabId, url) {
 }
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-  if (changeInfo.status === 'complete' && tab.active) {
-    checkPhishingStatus(tabId, tab.url);
-  }
+  chrome.storage.local.get(['isActive'], (result) => {
+    if (result.isActive !== false) { // Default to active
+      if (changeInfo.status === 'complete' && tab.active) {
+        checkPhishingStatus(tabId, tab.url);
+      }
+    }
+  });
 });
 
 chrome.tabs.onActivated.addListener((activeInfo) => {
-  chrome.tabs.get(activeInfo.tabId, (tab) => {
-    if (tab && tab.url) {
-      checkPhishingStatus(activeInfo.tabId, tab.url);
+  chrome.storage.local.get(['isActive'], (result) => {
+    if (result.isActive !== false) { // Default to active
+      chrome.tabs.get(activeInfo.tabId, (tab) => {
+        if (tab && tab.url) {
+          checkPhishingStatus(activeInfo.tabId, tab.url);
+        }
+      });
     }
   });
 });

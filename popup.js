@@ -41,3 +41,18 @@ document.addEventListener('DOMContentLoaded', () => {
     menu.classList.toggle('hidden');
   });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  const activeToggle = document.getElementById('activeToggle');
+
+  // Load the saved state of the extension and update the checkbox
+  chrome.storage.local.get(['isActive'], (result) => {
+    activeToggle.checked = result.isActive !== false; // Default to true
+  });
+
+  // Save the new state when the toggle is changed
+  activeToggle.addEventListener('change', () => {
+    const isActive = activeToggle.checked;
+    chrome.storage.local.set({ isActive });
+  });
+});
