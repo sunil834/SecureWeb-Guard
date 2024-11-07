@@ -32,7 +32,8 @@ function checkPhishingStatus(tabId, url) {
       
       showPhishingNotification();
     } else {
-      chrome.action.setBadgeText({ tabId: tabId, text: "" });   
+      chrome.action.setBadgeText({ tabId: tabId, text: "✅" }); 
+      chrome.action.setBadgeBackgroundColor({ color: "green" });    
       chrome.storage.local.set({ isPhishing: false });
     }
   } catch (error) {
