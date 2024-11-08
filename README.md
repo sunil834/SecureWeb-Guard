@@ -1,4 +1,4 @@
-# SecureWeb-Guard: Advanced Phishing Protection Chrome Extension
+# Web-Guard: Advanced Phishing Protection Chrome Extension
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -13,85 +13,78 @@
 - [Contact](#contact)
 
 ## Introduction
-SecureWeb-Guard is a comprehensive Chrome extension designed to safeguard users against phishing websites. By leveraging a robust database of known phishing sites, SecureWeb-Guard identifies and alerts users when they visit potentially harmful sites, ensuring a safer browsing experience.
+**Web-Guard** is a cutting-edge Chrome extension designed to enhance online security by protecting users from phishing websites. Utilizing a dynamic database of known phishing URLs, Web-Guard offers real-time detection and alerts, ensuring users navigate the web safely without falling prey to phishing scams.
 
 ## Features
 
-- **Real-Time Phishing Detection**: Continuously checks URLs against an extensive database of phishing websites.
-- **Desktop Notifications**: Alerts users with pop-up notifications when they access flagged phishing sites.
-- **Safe Browsing Indicator**: Shows a clear visual indicator when a site is considered safe.
-- **Customizable Dark/Light Theme**: Users can switch between dark and light modes for an optimal viewing experience.
-- **Badge Indicator**: Displays a warning badge on the extension icon as a quick visual cue for potential threats.
-- **Local Database Storage**: Utilizes IndexedDB for efficient local storage of known phishing URLs, allowing quick lookups.
+- **Real-Time Phishing Detection**: Instantly verifies URLs against a continuously updated database of phishing sites.
+- **Alert Notifications**: Provides immediate pop-up notifications when potential phishing attempts are detected.
+- **Safe Browsing Indicator**: Employs a color-coded system in the browser toolbar to indicate website safety status.
+- **Customizable Themes**: Offers users the choice between a soothing dark theme and a bright light theme to enhance user experience.
+- **Badge Alerts**: Integrates badge icons on the extension's toolbar icon as a quick reference to site safety.
+- **Efficient Data Storage**: Uses Chrome's IndexedDB to store phishing URLs locally for rapid access and minimal performance impact.
 
 ## Installation
 
-Follow these steps to install the SecureWeb-Guard Chrome extension locally:
+To install Web-Guard on your Chrome browser, follow these steps:
 
-1. Clone this repository to your local machine:
+1. Clone the Web-Guard repository:
     ```bash
-    git clone https://github.com/sunil834/SecureWeb-Guard.git
+    git clone https://github.com/sunil834/Web-Guard.git
     ```
 
-2. Open Chrome and navigate to `chrome://extensions/`.
+2. Open Chrome and go to `chrome://extensions/`.
 
-3. Enable **Developer mode** using the toggle in the upper right corner.
+3. Activate **Developer mode** at the top right.
 
-4. Click **Load unpacked** and select the folder containing the cloned repository.
+4. Click **Load unpacked** and select the folder where you cloned the Web-Guard repository.
 
-5. The extension should now appear in your toolbar, ready for use.
+5. Web-Guard will now be active and visible in your browser's extension area.
 
 ## How It Works
 
-### URL Checking
-- The extension loads a list of known phishing URLs from `urls.txt` and saves them into an IndexedDB database for quick reference.
-- Monitors the active browser tab's URL, checking it in real-time against the database.
+### URL Verification
+- Upon browsing, Web-Guard checks each website's URL against its phishing database, which is updated regularly to include new phishing sources.
 
-### Tab Monitoring & Notifications
-- Actively scans the active tab for URL matches with known phishing sites.
-- If a match is found, a warning notification and badge indicator are displayed, alerting the user of the potential threat.
+### Active Tab Monitoring & User Notifications
+- Continuously monitors URLs of active tabs to detect phishing sites.
+- Displays immediate alerts and changes the toolbar badge color if a threat is detected, providing visual cues to the user about the site's credibility.
 
-### User Alerts
-- Users receive a desktop notification upon visiting a flagged phishing site, and the extension's popup displays a red warning message.
-- Safe sites are indicated by a green "This site is safe" message within the extension popup.
+### Alert Management
+- When a phishing site is detected, users are alerted with a desktop notification and a detailed warning in the extension popup.
+- For safe sites, a green "This site is safe" badge is displayed in the popup.
 
 ## Files Overview
 
-- **manifest.json**: Contains the configuration, permissions, and settings for the extension.
-- **background.js**: Core logic for monitoring URLs and generating alerts.
-- **popup.html**: Structure of the popup interface shown when the extension icon is clicked.
-- **popup.js**: Handles popup behavior, including theme toggling and displaying site status.
-- **styles.css**: Defines the appearance of the popup, including theme styling.
-- **urls.txt**: Text file holding the list of known phishing URLs.
+- **manifest.json**: Defines extension settings, permissions, and background scripts.
+- **background.js**: Implements the logic for URL checking and alert management.
+- **popup.html** and **popup.js**: Control the user interface and interactions within the extension popup.
+- **styles.css**: Manages all styling concerns for the popup, ensuring the extension is both functional and visually appealing.
+- **urls.txt**: A crucial file that contains the list of URLs identified as phishing threats.
 
 ## Usage
 
-1. Once installed, SecureWeb-Guard runs silently in the background, checking URLs as you browse.
-2. Click the extension icon to open the popup and view the security status of the current site:
-   - **Red warning** for flagged phishing sites.
-   - **Green message** for safe sites.
-3. Toggle the Dark/Light Theme from the popup for a preferred visual display.
+- **Background Protection**: Web-Guard operates in the background, automatically scanning all sites visited.
+- **Manual Checks**: Users can click on the extension icon to get a real-time safety status of the current page.
+- **Theme Customization**: Adjust the theme from the popup based on your preference for either dark or light mode.
 
 ## Development & Contributions
 
-Want to contribute to SecureWeb-Guard? Here’s how:
+Contributions to Web-Guard are highly encouraged, whether they are feature enhancements, bug fixes, or documentation improvements. Here's how you can contribute:
 
-1. **Fork the repository**.
-2. **Create a new branch** for your feature or bug fix.
-3. **Submit a pull request** for review and inclusion.
+1. **Fork the repository** on GitHub.
+2. **Create a new branch** for your modifications.
+3. **Commit changes** and **push** to your fork.
+4. **Submit a pull request** with a comprehensive description of changes.
 
 ## Issues
 
-For any issues or feature requests, please open an issue on the repository's GitHub page.
+Feel free to report issues or suggest new features by opening an issue on the GitHub repository page.
 
 ## License
 
-This project is licensed under the MIT License. See the `LICENSE` file for more details.
+Web-Guard is made available under the **MIT License**, which allows for redistribution and use with few restrictions. See the `LICENSE` file for full details.
 
 ## Contact
 
-For questions or further assistance, please contact Sunil at [GitHub Profile](https://github.com/sunil834).
-
---- 
-
-Contributions, feedback, and suggestions are always welcome!
+For further information or support, contact the project maintainer, Sunil, through [his GitHub profile](https://github.com/sunil834).
