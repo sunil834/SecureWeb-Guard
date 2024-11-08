@@ -87,4 +87,4 @@ Web-Guard is made available under the **MIT License**, which allows for redistri
 
 ## Contact
 
-For further information or support, contact the project maintainer, Sunil, through [his GitHub profile](https://github.com/sunil834).
+For further information or support, contact the project maintainer, through [his GitHub profile](https://github.com/sunil834).
